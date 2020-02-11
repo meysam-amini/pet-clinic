@@ -7,7 +7,7 @@ import java.util.Set;
 
 public abstract class AbstractMapService<T,ID> {
 
-    protected Map<T,ID> map=new HashMap<>();
+    protected Map<ID,T> map=new HashMap<>();
 
     Set<T> findAll(){
         return new HashSet(map.values());
@@ -17,8 +17,8 @@ public abstract class AbstractMapService<T,ID> {
         return (T) map.get(id);
     }
 
-    T save(ID id,T object){
-        map.put(object,id);
+    T save(T object,ID id){
+        map.put(id,object);
         return object;
     }
 
