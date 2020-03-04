@@ -1,10 +1,25 @@
-version: 2.1
+version: 2
+jobs:
+build:
 
-orbs:
-  maven: circleci/maven@0.0.12
+working_directory: ~/tmp
+docker:
+- image: circleci/openjdk:8-jdk-browsers
 
-workflows:
-  maven_test:
-    jobs:
-    - maven/test # checkout, build, test, and upload test results
+steps:
 
+- checkout
+
+# Download and cache dependencies
+- restore_cache:
+    keys:
+    - v1-dependencies-{{ checksum "pom.xml" }}
+    # fallback to using the latest cache if no exact match is found
+    - v1-dependencies-
+
+- run: mvn clean install
+
+- save_cache:
+    paths:
+    - ~/.m2
+    key: v1-dependencies-{{ checksum "pom.xml" }}
