@@ -1,32 +1,30 @@
 version: 2.1
+jobs:
+    build:
+        docker:
+        - image: circleci/openjdk:8-jdk
 
-orbs:
-  maven: circleci/maven@0.0.12
 
-workflows:
-  maven_test:
-    jobs:
-    - maven/test # checkout, build, test, and upload test results
-build:
+        working_directory: ~/repo
 
-working_directory: ~/tmp
-docker:
-- image: circleci/openjdk:8-jdk-browsers
+        environment:
+            MAVEN_OPTS: Xmx3200m
 
-steps:
-
-- checkout
+        steps:
+        - checkout
 
 # Download and cache dependencies
-- restore_cache:
-    keys:
-    - v1-dependencies-{{ checksum "pom.xml" }}
-    # fallback to using the latest cache if no exact match is found
-    - v1-dependencies-
+        - restore_cache:
+              keys:
+              - v1-dependencies-{{ checksum "pom.xml" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
 
-- run: mvn clean install
+        - run: mvn clean install
 
-- save_cache:
-    paths:
-    - ~/.m2
-    key: v1-dependencies-{{ checksum "pom.xml" }}
+        - save_cache:
+              paths:
+              - ~/.m2
+              key: v1-dependencies-{{ checksum "pom.xml" }}
+
+        -run: mvn integration-test
