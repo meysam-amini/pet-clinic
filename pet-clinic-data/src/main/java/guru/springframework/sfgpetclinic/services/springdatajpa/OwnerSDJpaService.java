@@ -1,5 +1,5 @@
 package guru.springframework.sfgpetclinic.services.springdatajpa;
-
+import guru.springframework.sfgpetclinic.exceptions.NotFoundException;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.repositories.OwnerRepository;
 import guru.springframework.sfgpetclinic.repositories.PetRepository;
@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -39,7 +40,11 @@ public class OwnerSDJpaService implements OwnerService {
 
     @Override
     public Owner findById(Long aLong) {
-        return ownerRepository.findById(aLong).orElse(null);
+
+        Optional<Owner> oo=ownerRepository.findById(aLong);
+        if(!oo.isPresent())
+            throw new NotFoundException("Damn Owner not found!!");
+        return oo.get();
     }
 
     @Override
@@ -49,7 +54,7 @@ public class OwnerSDJpaService implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
-        Set<Owner> owners=new HashSet<>();
+        Set<Owner> owners = new HashSet<>();
         ownerRepository.findAll().forEach(owners::add);
         return owners;
     }

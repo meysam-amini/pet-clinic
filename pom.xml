@@ -19,8 +19,20 @@
     <description>SFG Pet Clinic Project</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>14</java.version>
+        <maven.comiler.source>${java.version}</maven.comiler.source>
+        <maven.comiler.target>${java.version}</maven.comiler.target>
+        <jaxb.version>2.3.1</jaxb.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+
+    </dependencies>
 
     <build>
         <plugins>
