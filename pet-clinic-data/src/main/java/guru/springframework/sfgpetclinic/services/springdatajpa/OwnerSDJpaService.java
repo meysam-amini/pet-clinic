@@ -42,7 +42,7 @@ public class OwnerSDJpaService implements OwnerService {
     public Owner findById(Long aLong) {
 
         Optional<Owner> oo=ownerRepository.findById(aLong);
-        if(!oo.isPresent())
+        if(oo.isEmpty())
             throw new NotFoundException("Damn Owner not found!!");
         return oo.get();
     }
