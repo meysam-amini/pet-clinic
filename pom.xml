@@ -19,7 +19,7 @@
     <description>SFG Pet Clinic Project</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <maven.comiler.source>${java.version}</maven.comiler.source>
         <maven.comiler.target>${java.version}</maven.comiler.target>
         <jaxb.version>2.3.1</jaxb.version>
