@@ -10,17 +10,33 @@
 <table class=" table table-striped">
     <thead>
     <tr>
-        <th style="width: 150px;">Id</th>
-        <th style="width: 150px;">First Name</th>
-        <th style="width: 150px;">Last Name</th>
+        <th style="width: 150px;">Name</th>
+        <th style="width: 150px;">Specialties</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="vet: ${vets}">
 
-        <td th:text="${vet.id}">1</td>
-        <td th:text="${vet.firstName}">Joe</td>
-        <td th:text="${vet.lastName}">Buck</td>
+        <td th:text="${vet.firstName+' '+ vet.lastName}">Joe</td>
+        <td>
+            <!--<table class="table-condensed">-->
+                <!--<tbody>-->
+                <!--<tr  th:each="specialty: ${vet.specialties}">-->
+                    <!--<td >-->
+                        <!--<span th:text="${specialty.description}"/>-->
+                        <!--<span th:if="${vet.getSpecialties().size()==0}">-->
+                <!--None-->
+            <!--</span>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+            <span th:each="specialty: ${vet.specialties}"
+            th:text="${specialty.description+' '}"/>
+            <span th:if="${vet.getSpecialties().size()==0}">
+                  None
+                </span>
+        </td>
     </tr>
     </tbody>
 
